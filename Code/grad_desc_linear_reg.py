@@ -18,8 +18,6 @@ with  open('salary.dat', 'r') as input:
         A = np.append(A, [vect], axis=0)
         y = np.append(y, [wordList[5]], axis=0)
         length += 1
-print(A)
-print(y)
-
 w = np.linalg.lstsq(A, y)[0]
+print('Least square weight: ')
 print(w)

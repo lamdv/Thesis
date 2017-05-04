@@ -1,0 +1,215 @@
+% --- uncolored copy of v4, sent to EG
+
+%Version for arxiv
+\documentclass[11pt]{article}
+
+%\usepackage[frenchb]{babel}
+% or whatever
+\usepackage[babel=true,kerning=true]{microtype}
+\usepackage{multirow}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{geometry}   % Doc: geometry.pdf
+\geometry{a4paper}      % ... or letterpaper or a5paper or ... 
+%\geometry{landscape}   % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % to begin paragraphs with an empty line rather than an indent
+
+\usepackage{graphicx}  % Add graphics capabilities
+%\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
+%\usepackage{epic,eepic}
+\usepackage{flafter}  % Don't place floats before their definition
+
+\usepackage{amsmath,amssymb}  % Better maths support & more symbols
+\usepackage{bm}  % Define \bm{} to use bold math fonts
+\usepackage{dsfont}
+% Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
+\usepackage{fourier} % math & rm
+\usepackage[scaled=0.875]{helvet} % ss
+\renewcommand{\ttdefault}{lmtt} %tt
+
+\usepackage[ruled, vlined, linesnumbered, longend]{algorithm2e}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{pgfkeys}
+
+\usepackage{setspace}
+\doublespacing
+
+
+
+\def\bgr#1{\boxnote{SB}{\color{blue}#1}}
+\def\hgr#1{}
+\newcommand{\msb}[1]{{\color{blue}#1}}
+%\newcommand{\mgr}[1]{{#1}}
+\def\bgr#1{\boxnote{TB}{\color{red}#1}}
+\def\hgr#1{}
+\newcommand{\mhik}[1]{{\color{red}#1}}
+
+
+
+%     %%%%%%%%%
+%--- from ''rubino/Library/texmf/tex/latex/''
+%\input{mycolors}
+%\input{comms_gral}
+%\input{comms_pr}
+%     %%%%%%%%%
+\include{macrosBaster}
+\newcommand{\vs}{\mathbf{s}}
+%\newcommand{\Nu}{N_{\rm{u}}}
+%\newcommand{\vu}{\mathbf{u}}
+
+
+\newif\ifnotes\notestrue
+\def\boxnote#1#2{\ifnotes\fbox{\footnote{\ }}\ \footnotetext{ From #1: #2}\fi}
+
+
+%%%
+\title{To create a title - feel free}
+%%%%
+\author{
+Project report of Name
+~\\
+\\
+}
+\date{\today}
+%}
+
+
+
+\begin{document}
+\maketitle
+
+~\\
+~\\
+~\\
+~\\
+~\\
+~\\
+
+\begin{minipage}[t]{0.5\textwidth}
+\begin{itemize}
+\item Student:\\ 
+Dang Vu Lam	USTH BI4-078\\
+Information and Communication \\Technology Department\\
+University of Science and Technology \\of Hanoi\\
+Hanoi, Vietnam\\
+\texttt{lam.dv@live.com}
+\end{itemize}
+\end{minipage}
+%second column
+\begin{minipage}[t]{0.5\textwidth}
+\begin{itemize}
+\item Supervisors:\\
+Sebasti\'an Basterrech\\
+and
+......
+%Department of Computer Science, Faculty of Electrical Engineering\\
+%Czech Technical University, Prague, Czech Republic\\
+%\texttt{sebastian.basterrech@agents.fel.cvut.cz}
+%and 
+\end{itemize}
+\end{minipage}
+
+\clearpage
+\newpage
+
+\begin{abstract}
+
+To be done later, it is a short text describing the thesis, around 500 characters (between 5 and 10 sentences).
+
+%
+\end{abstract}
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+The introduction should contain:
+
+- Why is interesting to study the subject of your thesis, in what we can use our discover, etc. (around 4-5 sentences)\\
+
+- Description of the contributions. (around 4-5 sentences)\\
+
+All the introduction should be around one page and half, or two pages, we will well define later.
+
+\subsection{Specification of the notation}
+
+To discuss together.
+
+\section{State of the art}
+%In this section you will describe the methods. ....
+\subsection{Supervised Learning}
+%\msb{To be done in the week 2}
+Supevised Learning is a Statiscal Learning technique in which for each observation of the predictor mesurement $x_i$ there is an associated respond measurement $y_i$.\cite[p. 26]{james_introduction_2013} The target is to fit a model that related the relation between the predictor and the respond for prediction or inference.
+
+%Here to write a general definition of Supervised Learning that is the area in which we are working.
+%To include deifnitions of:
+%\begin{itemize}
+%\item training dataset
+%\item testing dataset
+%\item overfitting
+%\item cross validation
+%\end{itemize}
+
+\subsection{Linear Regression Models}
+%\msb{To be finished in the week 1 and week 2}
+\subsubsection{Model Form}
+\begin{equation*}
+Y=F(X)+\varepsilon=\beta_0 + \beta_1*X_1 + ... + \beta_n*X_n + \varepsilon
+\end{equation*}
+where Y is the respond, X is the predictor. The Linear Model assume the linear relationship between the predictor X and respond Y. \cite{james_introduction_2013}
+\subsubsection{Normal Equation}
+In order to solve the weights for linear regression problem, we compute the least square line/plane. The least square vector is the solution of the normal equation:
+\begin{equation*}
+(X^TX)\hat{\beta} = X^TY
+\end{equation*}
+\subsubsection{Geometric Interpretation of the solution}
+
+\subsubsection{Computation of the Prediction of a Linear Model}
+After the weight for a linear system have been calcualted, prediction $\hat{Y}$ can be obtained by
+\begin{equation*}
+\hat{Y} = \hat{F}(X),
+\end{equation*}
+where $\hat{F}$ represent the estimation of $F(X)$. The form of $\hat{F}(X)$ is not relevant as long as it yield accurate $\hat{Y}$ \cite [p. 19] {james_introduction_2013}.
+\section{Description of Linear Model}
+
+\subsection{Extreme Learning Machines}
+\msb{To be finished in the week 3 and week 4}
+
+Should be the model definition.
+
+Also to insert some paragraph with the applications. Something like: this model has been used in computer vision~\cite{.....}. Besides, in~\cite{} the authors applied ELM for ......
+
+\subsection{Echo State Networks}
+Model definition.
+Model properties.
+Also insert a paragraph about the applications.
+
+\subsection{Progressive Nets}
+Model definition.
+Model properties.
+Also insert a paragraph about the applications.
+
+
+\section{Experimental Results}
+We should select three problems of UCI dataset which are on the same field (for example you select applications in biology) and we will apply the three models and show and analyse the results.
+
+Ig you are not sure about what topic, or dataset to select, we can talk about it and I can provide you dataset for analyzing.
+
+At the beginning just include and analyze the results of:
+\begin{itemize}
+\item Salary dataset
+\item House prices
+\end{itemize}
+
+
+\section{Conclusions}
+\msb{To be done in the near future}
+
+\bibliographystyle{plain}
+%\bibliography{references,refRnn}
+\bibliography{refRnn}
+
+\end{document}

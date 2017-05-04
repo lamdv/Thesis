@@ -1,0 +1,36 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+
+\title{Week 1 Report: Supervised Learning review}
+\date{2017-04-27}
+\author{Lam Dang}
+
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+\newpage
+\pagenumbering{arabic}
+
+\section{Supervised Learning}
+Supevised Learning is a Statiscal Learning technique in which for each observation of the predictor mesurement $x_i$ there is an associated respond measurement $y_i$. The target is to fit a model that related the relation between the predictor and the respond for prediction or inference.
+\section{Description of Linear Model}
+\subsection{Model Form}
+\begin{equation*}
+Y=F(X)+\varepsilon=\beta_0 + \beta_1*X_1 + ... + \beta_n X_n + \varepsilon
+\end{equation*}
+where Y is the respond, X is the predictor. The Linear Model assume the linear relationship between the predictor X and respond Y
+\subsection{Normal Equation}
+In order to solve the weights for linear regression problem, we compute the least square line/plane. The least square vector is the solution of the normal equation:
+\begin{equation*}
+(X^TX)\hat{\beta} = X^TY
+\end{equation*}
+\subsection{Geometric Interpretation of the solution}
+
+\subsection{Computation of the Prediction of a Linear Model}
+After the weight for a linear system have been calcualted, prediction $\hat{Y}$ can be obtained by
+\begin{equation*}
+\hat{Y} = \hat{F}(X),
+\end{equation*}
+where $\hat{F}$ represent the estimation of $F(X)$. The form of $\hat{F}(X)$ is not relevant as long as it yield accurate $\hat{Y}$
+\end{document}

@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {subsection}{\numberline {1.1}Specification of the notation}{4}
+\contentsline {section}{\numberline {2}State of the art}{4}
+\contentsline {subsection}{\numberline {2.1}Supervised Learning}{4}
+\contentsline {subsection}{\numberline {2.2}Linear Regression Models}{5}
+\contentsline {subsection}{\numberline {2.3}Extreme Learning Machines}{5}
+\contentsline {subsection}{\numberline {2.4}Echo State Networks}{5}
+\contentsline {subsection}{\numberline {2.5}Progressive Nets}{5}
+\contentsline {section}{\numberline {3}Experimental Results}{5}
+\contentsline {section}{\numberline {4}Conclusions}{6}

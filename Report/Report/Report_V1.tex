@@ -165,6 +165,10 @@ In order to solve the weights for linear regression problem, we compute the leas
 \begin{equation*}
 (X^TX)\hat{\beta} = X^TY
 \end{equation*}
+One popular method of calculating a model $\hat{\beta}$ is to calculate the\emph{ Moore - Penrose generalized inverse} of $X$, denoted $X^t$. $\hat{\beta}$ then given as
+\begin{equation*}
+\hat{\beta} = X^tY \cite{huang_extreme_2006}
+\end{equation*}
 \subsubsection{Geometric Interpretation of the solution}
 
 \subsubsection{Computation of the Prediction of a Linear Model}
@@ -208,7 +212,7 @@ At the beginning just include and analyze the results of:
 \section{Conclusions}
 \msb{To be done in the near future}
 
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 %\bibliography{references,refRnn}
 \bibliography{refRnn}
 

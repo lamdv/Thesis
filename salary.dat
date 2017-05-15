@@ -14,17 +14,12 @@
    male associate  9   masters 27 23712
    male      full  9 doctorate 24 25748
    male      full  7 doctorate 15 29342
-   male      full 13 doctorate 20 31114
-   male associate 11   masters 14 24742
-   male associate 10   masters 15 22906
-   male      full  6   masters 21 24450
-   male assistant 16   masters 23 19175
-   male associate  8   masters 31 20525
    male      full  7 doctorate 13 27959
  female      full  8 doctorate 24 38045
-   male associate  9 doctorate 12 24832
-   male      full  5 doctorate 18 25400
-   male associate 11 doctorate 14 24800
+ female assistant  1 doctorate  1 16686
+ female assistant  1 doctorate  1 15000
+ female assistant  0 doctorate  2 20300
+    male associate 11 doctorate 14 24800
  female      full  5 doctorate 16 25500
    male associate  3   masters  7 26182
    male associate  3   masters 17 23725
@@ -45,8 +40,3 @@
    male assistant  2 doctorate  3 16500
    male assistant  2 doctorate  1 16094
  female assistant  2 doctorate  6 16150
- female assistant  2 doctorate  2 15350
-   male assistant  1 doctorate  1 16244
- female assistant  1 doctorate  1 16686
- female assistant  1 doctorate  1 15000
- female assistant  0 doctorate  2 20300

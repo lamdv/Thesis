@@ -1,14 +1,16 @@
 import numpy as np
 import re
 
+np.random.seed()
+
 #network parameters
-width = 20
+width = 10
 func = np.random.rand(width, 1) #randomly assign activation function to the nodes of the network
 
 #dictionary
-genders = {'male':0, 'female':1}
-ranks = {"full":0, "associate":1, "assistant":2}
-degrees = {"masters":0, "doctorate":1}
+genders = {'male':1, 'female':2}
+ranks = {"full":1, "associate":2, "assistant":3}
+degrees = {"masters":1, "doctorate":2}
 
 #data input from ../salary.dat
 #convert text input to numeric according to dictionary above
@@ -47,13 +49,16 @@ def sigmoid(x):
 def linear(x):
     return x
 
+#softplus function
+def softplus(x):
+    return np.log(1+np.exp(x))
+
 #read the training dataset
 [A, y, length] = inp('salary.dat')
 #randomized input weights
-syn0 = 2*np.random.random((6,width)) - 1
+syn0 = np.random.random_integers(100, size = (6, width))
 out = feed_forward(A, syn0, width)
 w = np.linalg.lstsq(out.T, y)[0] #least square learning on the output weight of random layer
-
 
 #read the test dataset
 [A, y, length] = inp("salary_test.dat")

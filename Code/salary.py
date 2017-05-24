@@ -33,4 +33,4 @@ print(w)
 
 err = np.average(np.dot(A, w) - y)
 
-print("Error: ", np.average(err))
+print("Error: ", err)

@@ -21,7 +21,7 @@ def inp(file):
         y = np.array([0])
         for line in input.readlines():
             wordList = re.sub("[^\w]", " ", line).split()
-            vect = np.array([1, float(genders[wordList[0]]), ranks[wordList[1]], float(wordList[2]), degrees[wordList[3]], float(wordList[4])]) #gender, rank, yr, degree received, yd
+            vect = np.array([0, float(genders[wordList[0]]), ranks[wordList[1]], float(wordList[2]), degrees[wordList[3]], float(wordList[4])]) #gender, rank, yr, degree received, yd
             A = np.append(A, [vect], axis=0)
             y = np.append(y, [float(wordList[5])], axis=0)
             length += 1
@@ -39,7 +39,7 @@ def feed_forward(A, syn0, width):
 def sigmoid(x):
     return 1/(1+np.exp(-x))
 
-def deriv(x):
+def deriv_sigmoid(x):
     return x*(1-x)
 
 #softplus function

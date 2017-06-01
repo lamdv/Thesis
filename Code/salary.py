@@ -20,12 +20,12 @@ def inp(file):
             A = np.append(A, [vect], axis=0)
             y = np.append(y, [float(wordList[5])], axis=0)
             length += 1
-    return sigmoid(np.delete(A, 0, axis = 0)), np.delete(y, 0), length
+    return np.delete(A, 0, axis = 0), np.delete(y, 0), length
     # return np.delete(A, 0, axis = 0), np.delete(y, 0), length
 
 [A, y, length] = inp('salary.dat')
 
-# A = sigmoid(A)
+A = sigmoid(A)
 
 print(A)
         
@@ -35,8 +35,10 @@ print(w)
 
 [A, y, length] = inp('salary_test.dat')
 
-# A = sigmoid(A)
+A = sigmoid(A)
 
+print "result: "
+print np.dot(A,w)
 err = np.average(np.dot(A, w) - y)
 
 print("Error: ", err)

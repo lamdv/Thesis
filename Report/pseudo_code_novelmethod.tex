@@ -1,0 +1,21 @@
+\documentclass[11pt]{article}
+\usepackage{amsthm}
+ 
+\newtheorem{remark}{Remark}
+\begin{document}
+\begin{flushleft}
+\section*{Psuedo code}
+\subsection*{Phase 1: ELM learning of original dataset}
+$[w_{inp\_1},w_{out\_1}] = elm(h_1, t_1)$ \\
+$free(h_1,t_1)$  ; \textit{Original data is forgotten}
+\subsection*{Phase 2: Generative Inertial learning}
+$h_g = rand([size\_of\_input, size\_of\_inertia])$ ; \textit{Generate randomized inertia}\\
+$t_g = dot(feed\_forward(w_{inp\_1}, h_g), w_{out\_1}$ ; \textit{Calculate output inertia}\\
+$h_i = h_i.append(h_g)$\\
+$t_i = t_i.append(t_g)$ ; \textit{Append inertia to incoming dataset}\\
+$[w_{inp\_i}, w_{out\_i}] = elm(h_i, t_i)$ ; \textit{Learn new model from combined dataset}\\
+$free(h_i, t_i) ; \textit{Purge the current dataset; Ready for incoming data}$\par
+\begin{remark} This algorithm should work with not only ELM but also any batch learning algorithm\end{remark}
+\begin{remark} The chunk size of the incoming data is irrelevent with the ability of the algorithm to derive correct estimation of the target function \textit{need prove}\end{remark}
+\end{flushleft}
+\end{document}

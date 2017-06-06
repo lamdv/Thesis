@@ -18,33 +18,38 @@
 \pagenumbering{arabic}
 \section{Gradient Descent}
 Gradient Descent is a popular method in Data Mining to obtain the most suitable model. Gradient Descent usually used in tandem with other algorithm in order to create a model for prediction or classification, such as Linear Regression, Neural Network etc. \par
-The concept of Gradient Descent is to "go down" the gradient "well" at a predefined rate. After each "step" the algorithm re-evaluate for new weight vector. These steps are repeated until a pre-defined number of iterations or until the global minima have been reach.\par
-Another view on the algorithm is to consider it as an optimization process \cite{lecun_theoretical_1992}. In this view, Gradient Descent is considered as a constrained minimization problem.
+The concept of Gradient Descent is to "go down" the gradient "well" at a predefined rate. After each "step" the algorithm re-evaluate for new weight vector. These steps are repeated until a pre-defined number of iterations or until the global minima have been reach. \cite{bishop_pattern_2006}\par
+Another view on the algorithm is to consider it as an optimization process \cite{lecun_theoretical_1992}. In this view, Gradient Descent is considered as a constrained minimization problem of the model's error function.
 \subsection{Mathematical Model}
 Bishop \cite[p240]{bishop_pattern_2006} provide a simple formular to update weights vector base on Gradient information
 \begin{equation}
 w^{(\tau+1)} = w^{(\tau)} - \eta \nabla E (w^{(\tau)})
 \end{equation}
-whereas $\eta$ is the pre defined learning rate and $E (w^{(\tau)})$ is the loss function defined in the following section.
-\subsection{Loss Function}
-Bishop \cite[p242]{bishop_pattern_2006} also describe an evaluation of weight vector base on derivative of error function. 
+whereas $\eta$ is the pre defined learning rate and $E (w^{(\tau)})$ is the error function defined in the following section.
+\subsection{Error Function}
+Bishop \cite[p242]{bishop_pattern_2006} also describe an evaluation of weight vector base on derivative of error function. The error function is given as
 \begin{equation}
 E(w) = \frac{1}{2} \sum_{n=1}^N || y(x_n,w)-t_n||^2
 \end{equation}
-\pagebreak
+From $E(w)$ the derivative $\nabla E(w)$ is given by
+\begin{equation}
+\frac{\partial E}{\partial a_k} = y_k - t_k
+\end{equation}
+Different method can be used for Gradient Descent. For Stochastic method, one data point is considered at one time. On the other hand, for batch method, multiple data point are considered and their error functions' derivatives are sumed to form the total error function for the iteration.
+\subsection{Learning Rate}
+An important aspect of Gradient Descent is its Learning Rate $\eta$. One of the major drawback of the method is the learning rate must be carefully considered. If $\eta$ is too small, the algorithm might take very long time to finish or will not reach the minima before the exit condition is met. Meanwhile a $\eta$ too large will risk overshooting the desired result.
 
 \section{Backpropagation}
-Backpropagation is one of the the dominating method for learning with Artificial Neural Network. The concept of Backpropagation is relatively simple however they can provide robust learning scheme and models. \cite{lecun_theoretical_1992}
+Backpropagation is one of the most popular method used in Data Mining and Artificial Intelligent field for obtaining a model for Artificial Neural Network. Discovered and re-discovered many time in the $20^{th}$ century, the method is popularized and refined by multiple independent party, one of the most prominion are Werbos and Le Cun \cite{lecun_theoretical_1992}
 \subsection{Algorithm}
-Backpropagation algorithm use indefinitely differentiable activation function. We denote these function as $F$ and their derivative as $F'$. The algorithm went through 2 steps
+Backpropagation algorithm can be considered layered version of Gradient Descent \cite{bishop_pattern_2006}. It use indefinitely differentiable activation function for its neurons. We denote these function as $F$ and their derivative as $F'$. The algorithm then went through 2 steps: \cite[161]{rojas_neural_1996}
 \subsubsection{Forward Propagation}
-The input $X_i$ is feed into the network. The functions $F(X_i)$ are calculated and propagate forward into next layers. The derivative functions $F'(X_i)$ are stored
+The input $X_i$ is feed into the network. The functions $F(X_i)$ are calculated and propagate forward into next layers. The derivative functions $F'(X_i)$ are stored.
 \subsubsection{Back Propagation}
-The 
-\nocite{rojas_neural_1996}
+The constant 1 is assigned to the output unit and feed into the network in reverse. The incomming values to each node is added and multiply with value previously stored in those nodes. The result is then transfered upward to the input layer as derivative of the network function with respect to $X_i$
 \subsection{Weight update}
+The weight of a connection (vertice) is adjusted proportionally to an error signal $\delta$ (Sec 2.1.2). 
 \subsection{Learning Rate}
-\pagebreak
 
 \section{Current Result}
 \subsection{Linear Regression}

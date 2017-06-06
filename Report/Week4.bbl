@@ -1,15 +1,15 @@
 \begin{thebibliography}{1}
 
+\bibitem{bishop_pattern_2006}
+Christopher~M. Bishop.
+\newblock {\em Pattern recognition and machine learning}.
+\newblock Information science and statistics. Springer, 2006.
+
 \bibitem{lecun_theoretical_1992}
 Yann Lecun.
 \newblock A theoretical framework for back-propagation.
 \newblock In {\em Artificial neural networks}. {IEEE} Computer Society Press,
   1992.
-
-\bibitem{bishop_pattern_2006}
-Christopher~M. Bishop.
-\newblock {\em Pattern recognition and machine learning}.
-\newblock Information science and statistics. Springer, 2006.
 
 \bibitem{rojas_neural_1996}
 Raúl Rojas.

@@ -1,16 +1,10 @@
 import numpy as np
 import re
 
-np.random.seed()
-
-#network parameters
-width = 100
-#func = np.random.rand(width, 1) #randomly assign activation function to the nodes of the network
-
 #dictionary
-genders = {'male':1, 'female':2}
-ranks = {"full":1, "associate":2, "assistant":3}
-degrees = {"masters":1, "doctorate":2}
+genders = {'male':1, 'female':-1}
+ranks = {"full":1, "associate":0, "assistant":-1}
+degrees = {"masters":1, "doctorate":-1}
 
 #data input from ../salary.dat
 #convert text input to numeric according to dictionary above
@@ -29,34 +23,17 @@ def inp(file):
 
 #feed forward into the network
 #sigmoid activation network
-def feed_forward_sigmoid(A, syn0, width):
-    l0 = A
-    l1 = np.array([sigmoid(np.dot(l0, syn0[:,1]))]) 
-    for iter_width in range(width-1):
-        l1 = np.append(l1, [sigmoid(np.dot(l0, syn0[:,iter_width]))],axis = 0) # Sigmoid activation function nodes
-    return l1
+def feed_forward(A, syn, activ = "sigmoid"):
+    if activ == "sigmoid":
+        l1 = sigmoid(np.dot(A, syn))
+        return l1
+    elif activ == "linear":
+        l1 = np.dot(A, syn0)
+        return l1
+    else:
+        l1 = softplus(np.dot(A, syn)) # Sigmoid activation function nodes
+        return l1
 
-#linear activation network
-def feed_forward_linear(A, syn0, width):
-    l0 = A
-    l1 = np.array([sigmoid(np.dot(l0, syn0[:,1]))]) 
-    for iter_width in range(width-1):
-        # if(func[iter_width] < 0.5):
-        l1 = np.append(l1, [linear(np.dot(l0, syn0[:,iter_width]))],axis = 0) # Linear activation function nodes
-        # else:
-        # l1 = np.append(l1, [sigmoid(np.dot(l0, syn0[:,iter_width]))],axis = 0) # Sigmoid activation function nodes
-    return l1
-
-#softplus activation network
-def feed_forward_softplus(A, syn0, width):
-    l0 = A
-    l1 = np.array([softplus(np.dot(l0, syn0[:,1]))]) 
-    for iter_width in range(width-1):
-        # if(func[iter_width] < 0.5):
-        l1 = np.append(l1, [softplus(np.dot(l0, syn0[:,iter_width+1]))],axis = 0) # Linear activation function nodes
-        # else:
-        # l1 = np.append(l1, [sigmoid(np.dot(l0, syn0[:,iter_width]))],axis = 0) # Sigmoid activation function nodes
-    return l1
 
 #sigmoid function
 def sigmoid(x):
@@ -70,20 +47,30 @@ def linear(x):
 def softplus(x):
     return np.log(1+np.exp(x))
 
-#read the training dataset
-[A, y, length] = inp('salary.dat')
-#randomized input weights
-syn0 = np.random.normal(size = (6, width))
-out = feed_forward_sigmoid(A, syn0, width)
-w = np.linalg.lstsq(out.T, y)[0] #least square learning on the output weight of random layer
+def elm(seed = None, activ = "sigmoid", width = 1000):
+    np.random.seed(seed)
+    #func = np.random.rand(width, 1) #randomly assign activation function to the nodes of the network
 
-#read the test dataset
-[A, y, length] = inp("salary_test.dat")
-#feed test data into network
-out = feed_forward_sigmoid(A, syn0, width)
-print ('least square weight')
-print w
-print ('feed forward result')
-print np.dot(out.T, w)
-#calculate error
-print(np.abs(np.average(np.dot(out.T, w) - y)))
+    #read the training dataset
+    [A, y, length] = inp('salary.dat')
+    #randomized input weights
+    syn0 = np.random.normal(size = (6, width))
+    h = feed_forward(A, syn0, activ)
+    w = np.linalg.lstsq(h, y)[0] #least square learning on the output weight of random layer
+
+    #read the test dataset
+    [A, y, length] = inp("salary_test.dat")
+    #feed test data into network
+    h = feed_forward(A, syn0, activ)
+
+    #calculate error
+    err = np.abs(np.average(np.dot(h, w) - y))
+    #print('',err)
+    return err
+
+print ("10 randomized weight networks test")
+for _width in range(100, 10000,100):
+    result = np.empty([100])
+    for i in range(100):
+        result [i] = elm( activ = "softplus", width = _width)
+    print(_width, np.std(result), np.average(result))

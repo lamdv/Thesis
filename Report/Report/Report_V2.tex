@@ -1,0 +1,40 @@
+\title{General study on State of the art Neural Network}
+\documentclass[11pt]{article}
+\begin{document}
+\section{General concepts of Machine Learning}
+\subsection{Supervised Learning}
+Supevised Learning is a Statiscal Learning technique in which for each observation of the predictor mesurement $x_i$ there is an associated respond measurement $y_i$.\cite[p. 26]{james_introduction_2013} The target is to fit a model that related the relation between the predictor and the respond for prediction or inference.
+\subsection{Unsupervised Learning}
+In contrary to Supervised Learning, Unsupervised learning there is no associated respond to every observation \cite[p. 27]{james_introduction_2013}. Because of the lack of appropriate response, 
+\subsection{Reinforcement Learning}
+Definition of traning/validation/testing sets.\\
+Definition of loss funcition.\\
+Algorithm Online/offline\\
+Incremental Learning.\\
+\section{Inertia in weight updating}
+For weights updating problem, it is important to maintain accuracy for previous training while incorporating new data. We can consider this as inertia ...\\
+For a stochastic or iterative algorithm such as gradient descent and its derivation (Backpropagation etc.), the inertia of the system is archived through
+\begin{itemize}
+\item Pervious state/weights of the system: The new weights is calculated base on the current weights as $\beta_i = \beta_(i-1) + \delta_\beta$ where $\delta_\beta$ is a weights adjust vector calculated base on the error between the desired output and the actual output; or the propagated error signal for each layer of a multilayer network.
+\item A constant $\alpha$, also known as ''learning rate'' which contribute to $\delta_\beta$
+\end{itemize}
+For a batch oriented, deterministic algorithm such as Extreme Learning Machine, the problem of weight updating is complicated as there is no built in mechanism to take into account current state of the newtwork. Take ELM for example, in order to derive fast learning speed, the algorithm calculate the weights matrix based on the whole training dataset. The previous state of the network is, there fore, unaccounted, and in fact, non existance. An inertia need to be added while adopting such algorithm for online problem.
+An intuitive method to take previous state into consideration for new weights is to save whole or part of the training sample. This method, however, is undesired. 
+Linear Model\\
+Solution of Normal equations\\
+Geometrical Interpretation\\
+
+\section{Neural Networks}
+General motivation (brief biological description, etc).\\
+Learning the weights.\\
+Backpropagation\\
+Problems of backpropagation\\
+
+\section{Swarm Intelligence}
+\subsection{PSO}
+
+\section{A new hybrid technique ELM+PSO a new technique}
+\bibliographystyle{unsrt}
+%\bibliography{references,refRnn}
+\bibliography{refRnn}
+\end{document}

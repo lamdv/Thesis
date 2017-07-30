@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib as plt
 import re
 
 #dictionary
@@ -26,13 +27,11 @@ def inp(file):
 def feed_forward(A, syn, activ = "sigmoid"):
     if activ == "sigmoid":
         l1 = sigmoid(np.dot(A, syn))
-        return l1
     elif activ == "linear":
         l1 = np.dot(A, syn0)
-        return l1
     else:
         l1 = softplus(np.dot(A, syn)) # Sigmoid activation function nodes
-        return l1
+    return l1
 
 
 #sigmoid function
@@ -69,8 +68,12 @@ def elm(seed = None, activ = "sigmoid", width = 1000):
     return err
 
 print ("10 randomized weight networks test")
+result = np.empty([(10000-100)/100,3])
 for _width in range(100, 10000,100):
-    result = np.empty([100])
+    _result = np.empty([100])
     for i in range(100):
-        result [i] = elm( activ = "softplus", width = _width)
-    print(_width, np.std(result), np.average(result))
+        _result [i] = elm( activ = "softplus", width = _width)
+    print(_width, np.std(_result), np.average(_result))
+    np.append(result,[_width, np.std(_result), np.average(_result)])
+plt.plot(result[:,0], result[:,1], result[:,2])
+plt.show()

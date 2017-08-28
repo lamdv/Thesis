@@ -9,7 +9,7 @@ def read_idx(filename):
         shape = tuple(struct.unpack('>I', f.read(4))[0] for d in range(dims))
         return np.fromstring(f.read(), dtype=np.uint8).reshape(shape)
 
-filename = "D:\\Thesis\\Code\\MNIST\\t10k-images-idx3-ubyte\\t10k-images.idx3-ubyte"
+filename = "/mnt/D6DCCC98DCCC73F1/Thesis/Code/MNIST/t10k-images-idx3-ubyte/t10k-images.idx3-ubyte"
 a = read_idx(filename)
 
 plot.imshow(a[10])

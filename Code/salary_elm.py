@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import re
 
 #dictionary
@@ -67,13 +67,14 @@ def elm(seed = None, activ = "sigmoid", width = 1000):
     #print('',err)
     return err
 
-print ("10 randomized weight networks test")
-result = np.empty([(10000-100)/100,3])
-for _width in range(100, 10000,100):
+print ("100 randomized weight networks test")
+result = np.empty([int((4000-100)/100),3])
+for _width in range(100, 4000,100):
     _result = np.empty([100])
     for i in range(100):
         _result [i] = elm( activ = "softplus", width = _width)
     print(_width, np.std(_result), np.average(_result))
     np.append(result,[_width, np.std(_result), np.average(_result)])
-plt.plot(result[:,0], result[:,1], result[:,2])
+# plt.plot(result[:,0], result[:,1], "-", result[:,2], "o")
+plt.plot(result[:,0], result[:,1], '-')
 plt.show()

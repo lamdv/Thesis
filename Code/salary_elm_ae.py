@@ -47,11 +47,9 @@ def linear(x):
 def softplus(x):
     return np.log(1+np.exp(x))
 
-def elm(A, y, seed = None, activ = "sigmoid"):
+def elm(A, y, seed = None, activ = "sigmoid", width = 1000):
     np.random.seed(seed)
 
-    #network parameters
-    width = 1000
     #func = np.random.rand(width, 1) #randomly assign activation function to the nodes of the network
 
     #read the training dataset
@@ -66,9 +64,9 @@ def elm(A, y, seed = None, activ = "sigmoid"):
 
 
 [A, y, length] = inp('salary.dat')
-[syn0, w] = elm(A, A)
+[syn0, w] = elm(A, A, width = 500)
 h = np.dot(feed_forward(A, syn0), w)
-[syn1, w1] = elm(h, y)
+[syn1, w1] = elm(h, y, width = 250)
 
 #read the test dataset
 [A, y, length] = inp("salary_test.dat")

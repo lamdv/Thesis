@@ -81,19 +81,27 @@ def find_direction(X, number_of_particle):
         if(curr_result<best_result):
             best_result = curr_result
             best_particle = i
-    return best_particle
+    D = X - np.full([10, 6, 250], X[best_particle])
+    # D.fill(np.asscalar(X[best_particle]))
+    return [D, best_particle, best_result]
 
-def pso(number_of_iter, number_of_particle):
+def PSO(number_of_iter, number_of_particle):
     #spawn initial position and velocity
     X = np.random.normal(size = [number_of_particle, 6, 250])
     V = np.random.normal(size = [number_of_particle, 6, 250])
     #iteration:
     for iter in range(number_of_iter):
-        D = find_direction(X)
-        V = V*np.random.normal(0,0.5, size = [number_of_particle]) + D
+        D = find_direction(X, number_of_particle)
+        V = V + D
         X = X + V
-        
+    best_particle = 0
+    best_result = evaluationELM(X[0])
+    for i in range(1, number_of_particle):
+        curr_result = evaluationELM(X[i])
+        if(curr_result<best_result):
+            best_result = curr_result
+            best_particle = i
+    return X[best_particle]
 
-print(evaluationELM(np.random.normal(size = [6, 250])))
-X = np.random.normal(size = [10, 6, 250])
-print(evaluationELM(X[find_direction(X, 10)]))
+# X = np.random.normal(size = [10, 6, 250])
+print(evaluationELM(PSO(100, 10)))

@@ -6,6 +6,8 @@ genders = {'male':1, 'female':-1}
 ranks = {"full":1, "associate":0, "assistant":-1}
 degrees = {"masters":1, "doctorate":-1}
 
+width = 100
+
 #data input from ../salary.dat
 #convert text input to numeric according to dictionary above
 def inp(file):
@@ -62,7 +64,7 @@ def elm(A, y, syn0, seed = None, activ = "sigmoid", width = 1000):
 
 def evaluationELM(syn0):
     [A, y, length] = inp('salary.dat')
-    w = elm(A, y, width = 250, syn0 = syn0)
+    w = elm(A, y, syn0 = syn0, width = width)
 
     #read the test dataset
     [A, y, length] = inp("salary_test.dat")
@@ -81,18 +83,22 @@ def find_direction(X, number_of_particle):
         if(curr_result<best_result):
             best_result = curr_result
             best_particle = i
-    D = X - np.full([10, 6, 250], X[best_particle])
+    D = X - np.full([number_of_particle, 6, 250], X[best_particle])
     # D.fill(np.asscalar(X[best_particle]))
     return [D, best_particle, best_result]
 
 def PSO(number_of_iter, number_of_particle):
     #spawn initial position and velocity
-    X = np.random.normal(size = [number_of_particle, 6, 250])
-    V = np.random.normal(size = [number_of_particle, 6, 250])
+    X = np.random.uniform(-0.5, 0.5, size = [number_of_particle, 6, 250])
+    V = np.random.uniform(-0.5, 0.5, size = [number_of_particle, 6, 250])
     #iteration:
+    Dglobal = np.empty([number_of_particle,6,250])
+    best_result = 1000000
     for iter in range(number_of_iter):
-        D = find_direction(X, number_of_particle)
-        V = V + D
+        [D, local_best_particle, local_best_result] = find_direction(X, number_of_particle)
+        if(local_best_result < best_result):
+            Dglobal = D
+        V = V + D + Dglobal
         X = X + V
     best_particle = 0
     best_result = evaluationELM(X[0])
@@ -104,4 +110,4 @@ def PSO(number_of_iter, number_of_particle):
     return X[best_particle]
 
 # X = np.random.normal(size = [10, 6, 250])
-print(evaluationELM(PSO(100, 10)))
+print(evaluationELM(PSO(100, 20)))

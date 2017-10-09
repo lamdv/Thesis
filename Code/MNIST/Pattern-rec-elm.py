@@ -1,38 +1,35 @@
 import numpy as np
-import re
+import matplotlib.pyplot as plt
+from mnist import MNIST
 
-#dictionary
-genders = {'male':1, 'female':-1}
-ranks = {"full":1, "associate":0, "assistant":-1}
-degrees = {"masters":1, "doctorate":-1}
+PATH = "Code\\MNIST\\"
+input_size = 28*28
+width = 100
 
-#data input from ../salary.dat
-#convert text input to numeric according to dictionary above
-def inp(file):
-    with  open(file, 'r') as input:
-        length = 0
-        A = np.array([[0, 0, 0, 0, 0, 0]]) #input layer size of 6
-        y = np.array([0])
-        for line in input.readlines():
-            wordList = re.sub("[^\w]", " ", line).split()
-            vect = np.array([0, float(genders[wordList[0]]), ranks[wordList[1]], float(wordList[2]), degrees[wordList[3]], float(wordList[4])]) #gender, rank, yr, degree received, yd
-            A = np.append(A, [vect], axis=0)
-            y = np.append(y, [float(wordList[5])], axis=0)
-            length += 1
-    return np.delete(A, 0, axis = 0), np.delete(y, 0), length
+def input(f, mode):
+    mdata = MNIST(f)
+    if(mode == 'training'):
+        return mdata.load_training()
+    elif(mode == 'testing'):
+        return mdata.load_testing()
+    else:
+        return null
 
-#feed forward into the network
-#sigmoid activation network
 def feed_forward(A, syn, activ = "sigmoid"):
     if activ == "sigmoid":
         l1 = sigmoid(np.dot(A, syn))
-        return l1
     elif activ == "linear":
         l1 = np.dot(A, syn0)
-        return l1
     else:
         l1 = softplus(np.dot(A, syn)) # Sigmoid activation function nodes
-        return l1
+    return l1
+
+def unfold(x):
+    _y = np.matrix(x)
+    y = np.zeros(10, _y.shape())
+    for i in range(_y.shape()):
+        y[_y[i], i] = 1
+    return _y
 
 
 #sigmoid function
@@ -47,38 +44,41 @@ def linear(x):
 def softplus(x):
     return np.log(1+np.exp(x))
 
-def elm(seed = None, activ = "sigmoid", width = 10):
+def elm(A, y, seed = None, activ = "sigmoid", width = 500):
     np.random.seed(seed)
-
-    #func = np.random.rand(width, 1) #randomly assign activation function to the nodes of the network
-
-    #read the training dataset
-    [A, y, length] = inp('salary.dat')
     #randomized input weights
-    syn0 = np.random.normal(size = (6, width))
-    syn1 = np.random.normal(size = (width, width))
-    h1 = feed_forward(A, syn0, activ)
-    h2 = feed_forward(h1, syn1, activ)
-    w = np.linalg.lstsq(h2, y)[0] #least square learning on the output weight of random layer
-
-    #read the test dataset
-    [A, y, length] = inp("salary_test.dat")
-    #feed test data into network
-    h1 = feed_forward(A, syn0, activ)
-    h2 = feed_forward(h1, syn1, activ)
-
-    #calculate error
-    err = np.abs(np.average(np.dot(h2, w) - y))
+    syn0 = np.random.normal(size = (input_size, width))
+    h = feed_forward(A, syn0, activ)
+    w = np.linalg.lstsq(h, y)[0] #least square learning on the output weight of random layer
     #print('',err)
-    return err
+    return syn0, w
 
-print ("10 randomized weight networks test")
-best = (elm(0, width = 10^0))
-best_i = 0
-for i in range(10):
-    curr = (elm(i, width = 10000))
-    best_i = i if (best < curr) else best_i
-    best = curr if (best < curr) else best
+def test(A, y, At, yt, width):
+    #traing using training data
+    syn0, w = elm(A, y, width = width)
+    #feed test data into network
+    h = feed_forward(At, syn0, "sigmoid")
+    _y = np.dot(h, w)
+    hit = np.abs(_y - yt)
+    #calculate hit rate
+    hit = np.where(hit < 0.5, 1, 0)
+    return np.average(hit)
 
-print ("Best error rate", best)
-print ("Best error seed", best_i)
+#read the trainimg dataset
+A, y = input(PATH, "training")
+y = unfold(y)
+print(y)
+#read the test dataset
+At, yt = input(PATH, "testing")
+yt = unfold(yt)
+print("Finished reading dataset")
+
+out = np.empty(7)
+for i in range(7):
+    width = (i+1)*100
+    print("10 test of", width, "neurons wide network")
+    result = np.empty(50)
+    for j in range(50):
+        result[j] = test(A, y, At, yt, width)
+    out[i] = np.average(result)
+    print(out[i])

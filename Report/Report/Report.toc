@@ -1,0 +1,19 @@
+\contentsline {section}{\numberline {1}Introduction}{6}
+\contentsline {section}{\numberline {2}Background}{7}
+\contentsline {subsection}{\numberline {2.1}Linear Regression}{7}
+\contentsline {subsubsection}{\numberline {2.1.1}Assumption of the model}{7}
+\contentsline {subsubsection}{\numberline {2.1.2}Gradient Descent}{7}
+\contentsline {subsubsection}{\numberline {2.1.3}Least Square}{8}
+\contentsline {subsection}{\numberline {2.2}Backpropagation}{8}
+\contentsline {subsubsection}{\numberline {2.2.1}Algorithm}{8}
+\contentsline {subsection}{\numberline {2.3}Extreme Learning Machine}{9}
+\contentsline {subsubsection}{\numberline {2.3.1}Mathematic Model}{9}
+\contentsline {subsection}{\numberline {2.4}Particle Swarm Optimization}{9}
+\contentsline {section}{\numberline {3}Implementation}{10}
+\contentsline {subsection}{\numberline {3.1}Simple dataset: Salary dataset}{10}
+\contentsline {subsubsection}{\numberline {3.1.1}Description}{10}
+\contentsline {subsubsection}{\numberline {3.1.2}Extreme learning machine applied to regression problem}{10}
+\contentsline {subsubsection}{\numberline {3.1.3}Particle Swarm Optimized Extreme Learning Machine}{10}
+\contentsline {subsection}{\numberline {3.2}MNIST}{10}
+\contentsline {section}{\numberline {4}Discussion}{11}
+\contentsline {subsection}{\numberline {4.1}Performance of ELM}{11}

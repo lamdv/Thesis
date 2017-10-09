@@ -1,4 +1,6 @@
 import numpy as np
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import re
 
 #dictionary
@@ -110,4 +112,17 @@ def PSO(number_of_iter, number_of_particle):
     return X[best_particle]
 
 # X = np.random.normal(size = [10, 6, 250])
-print(evaluationELM(PSO(100, 20)))
+result = np.empty([100,10])
+for i in range(1,101):
+    for j in range(1,11):
+        result[i-1,j-1] = evaluationELM(PSO(i, j))
+
+x = 100
+y = 10
+hf = plt.figure()
+ha = hf.add_subplot(111, projection='3d')
+
+X, Y = np.meshgrid(x, y)  # `plot_surface` expects `x` and `y` data to be 2D
+ha.plot_surface(X, Y, result)
+
+plt.show()

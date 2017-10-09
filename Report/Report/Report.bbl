@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{james_introduction_2013}
+Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani.
+\newblock {\em An Introduction to Statistical Learning}, volume 103 of {\em
+  Springer Texts in Statistics}.
+\newblock Springer New York, 2013.
+
+\bibitem{bishop_pattern_2006}
+Christopher~M. Bishop.
+\newblock {\em Pattern recognition and machine learning}.
+\newblock Information science and statistics. Springer, 2006.
+
+\bibitem{lecun_theoretical_1992}
+Yann Lecun.
+\newblock A theoretical framework for back-propagation.
+\newblock In {\em Artificial neural networks}. {IEEE} Computer Society Press,
+  1992.
+
+\bibitem{rojas_neural_1996}
+Raúl Rojas.
+\newblock {\em Neural Networks}.
+\newblock Springer Berlin Heidelberg, 1996.
+\newblock {DOI}: 10.1007/978-3-642-61068-4.
+
+\bibitem{huang_extreme_2016}
+Guang-Bin Huang, Qin-Yu Zhu, and Chee-kheong Siew.
+\newblock Extreme learning machine: Theory and applications.
+\newblock 2016-05-16.
+
+\end{thebibliography}

@@ -1,0 +1,205 @@
+
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[frenchb]{babel}
+% or whatever
+\usepackage[babel=true,kerning=true]{microtype}
+\usepackage{multirow}
+% or whatever
+
+\usepackage{geometry}   % Doc: geometry.pdf
+\geometry{a4paper}      % ... or letterpaper or a5paper or ... 
+%\geometry{landscape}   % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % to begin paragraphs with an empty line rather than an indent
+
+\usepackage{graphicx}  % Add graphics capabilities
+%\usepackage{epstopdf} % to include .eps graphics files with pdfLaTeX
+%\usepackage{epic,eepic}
+\usepackage{flafter}  % Don't place floats before their definition
+
+\usepackage{amsmath,amssymb}  % Better maths support & more symbols
+\usepackage{bm}  % Define \bm{} to use bold math fonts
+\usepackage{dsfont}
+% Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
+\usepackage{fourier} % math & rm
+\usepackage[scaled=0.875]{helvet} % ss
+\renewcommand{\ttdefault}{lmtt} %tt
+
+\usepackage[ruled, vlined, linesnumbered, longend]{algorithm2e}
+% \usepackage{utf8}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{pgfkeys}
+
+\usepackage{graphicx}
+\graphicspath{ {./Figures/} }
+
+\usepackage{setspace}
+\doublespacing
+
+
+
+\def\bgr#1{\boxnote{SB}{\color{blue}#1}}
+\def\hgr#1{}
+\newcommand{\msb}[1]{{\color{blue}#1}}
+%\newcommand{\mgr}[1]{{#1}}
+\def\bgr#1{\boxnote{TB}{\color{red}#1}}
+\def\hgr#1{}
+\newcommand{\mhik}[1]{{\color{red}#1}}
+
+
+
+%     %%%%%%%%%
+%--- from ''rubino/Library/texmf/tex/latex/''
+%\input{mycolors}
+%\input{comms_gral}
+%\input{comms_pr}
+%     %%%%%%%%%
+\include{macrosBaster}
+\newcommand{\vs}{\mathbf{s}}
+%\newcommand{\Nu}{N_{\rm{u}}}
+%\newcommand{\vu}{\mathbf{u}}
+
+
+\newif\ifnotes\notestrue
+\def\boxnote#1#2{\ifnotes\fbox{\footnote{\ }}\ \footnotetext{ From #1: #2}\fi}
+
+
+\begin{document}
+\begin{titlepage}
+\centering
+\textsc{\large University of Science and Technology of Hanoi} % University Name
+
+\textsc{\large \textbf{UNDERGRADUATE SCHOOL}}\\[1.0cm] % University Type    
+
+\includegraphics[scale = 0.5]{usthlogo}\\[0.5 cm]	% University Logo
+
+\textsc{\large Intership and Development}\\[0.5cm] % Type
+\textsc{\huge \textbf{BACHELOR THESIS}}\\[0.5cm] 
+
+\text{\large By}\\[0.25cm] % Type
+\text{\large Dang Vu Lam}\\[0.25cm] % name
+\text{\large Information and Communication Technology}\\[0.5cm] %specialty
+
+\text{\large Title} % Title
+\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+{ \huge \bfseries Extreme Learning Machine}\\[0.4cm] % Title of your document
+\rule{\linewidth}{0.2 mm} \\[0.5 cm]
+
+\text{\large Supervisors}\\[0.25cm] % Supervisors
+\text{\large Dr.Sebastián Basterrech}\\[0.25cm] % name
+
+\text{\huge \textbf{Hanoi, July 2017}}
+\end{titlepage}
+    
+
+\pagenumbering{arabic}
+\begin{abstract}
+To be done later, it is a short text describing the thesis, around 500 characters (between 5 and 10 sentences).
+\end{abstract}
+%%
+\newpage
+\section*{Acknowledgement}
+\newpage
+\section*{List of Abbreviations}
+\begin{itemize}
+    \item BP: Backpropagation
+    \item ELM: Extreme Learning Machine
+    \item MNIST: Mixed National Institute of Standards and Technology
+    \item PSO: Particle Swarm Optimization
+    \item USTH: University of Science and Technology of Hanoi
+\end{itemize}
+\newpage
+\section*{Mathematical notation}
+In order to add clarity to the paper, we decided to introduce the following formalism:
+\begin{itemize}
+    \item $F(X)$ : The result of applying activation function f(x) to all element of the matrix X
+    \item $H$ : The output matrix of the hidden layer (before apply the output weight)
+    \item $H^\dagger$ : The Moore-Penrose psuedoinverse of the matrix H
+    \item $X$ : The input matrix, which include all datapoint in consideration
+    \item $y$ : The expected output matrix
+    \item $\hat{y}$ : The approximated output matrix
+    \item $w$ : The weights matrixes, including
+    \begin{itemize}
+        \item $w_i$ : Input weights matrix
+        \item $w_o$ : Output weights matrix
+    \end{itemize}
+    \item $\eta$ : The predefined learning rate
+    \item $\varepsilon$ : Random error
+\end{itemize}
+\newpage
+\tableofcontents
+%%
+\newpage
+\section{Introduction}
+\newpage
+\section{Background}
+\subsection{Linear Regression}
+\subsubsection{Assumption of the model}
+The Linear Model assume the linear relationship between the predictor X and respond Y:
+\begin{equation*}
+    Y=F(X)+\varepsilon=\beta_0 + \beta_1*X_1 + ... + \beta_n X_n + \varepsilon
+\end{equation*}
+where Y is the respond, X is the predictor \cite{james_introduction_2013}. The vector $[\beta_0, .. , \beta_n]$ is called a weights vector, and must be tuned in order for the model to yield accurate result.
+\subsubsection{Gradient Descent}
+The concept of Gradient Descent is to "go down" the gradient "well" at a predefined rate. After each "step" the algorithm re-evaluate for new weight vector. These steps are repeated until a pre-defined number of iterations or until the global minima have been reach. \cite{bishop_pattern_2006}\\
+Another view on the algorithm is to consider it as an optimization process \cite{lecun_theoretical_1992}. In this view, Gradient Descent is considered as a constrained minimization problem of the model's error function.\\
+Bishop \cite[p240]{bishop_pattern_2006} provide a simple formular to update weights vector base on Gradient information
+\begin{equation}
+w^{(\tau+1)} = w^{(\tau)} - \eta \nabla E (w^{(\tau)})
+\end{equation}
+whereas $\eta$ is the pre defined learning rate and $E (w^{(\tau)})$ is the error function, which is given as
+\begin{equation}
+E(w) = \frac{1}{2} \sum_{n=1}^N || y(x_n,w)-t_n||^2
+\end{equation}
+From $E(w)$ the derivative $\nabla E(w)$ is given by
+\begin{equation}
+\frac{\partial E}{\partial a_k} = y_k - t_k
+\end{equation}
+An important aspect of Gradient Descent is its Learning Rate $\eta$. One of the major drawback of the method is the learning rate must be carefully considered. If $\eta$ is too small, the algorithm might take very long time to finish, might not converge or will not reach the minima before the exit condition is met. Meanwhile a $\eta$ too large will risk overshooting the desired result and unable to converge.
+\subsubsection{Least Square}
+
+\subsection{Backpropagation}
+Backpropagation is one of the most popular method used in Data Mining and Artificial Intelligent field for obtaining a model for Artificial Neural Network. Discovered and re-discovered many time in the $20^{th}$ century, the method is popularized and refined by multiple independent party, one of the most prominion are Werbos and Le Cun \cite{lecun_theoretical_1992}.
+\subsubsection{Algorithm}
+Backpropagation algorithm can be considered layered version of Gradient Descent \cite{bishop_pattern_2006}. It use indefinitely differentiable activation function for its neurons. We denote these function as $F$ and their derivative as $F'$. The algorithm then went through 2 steps: \cite[161]{rojas_neural_1996}
+\begin{itemize}
+\item Forward Propagation\\
+The input $X_i$ is feed into the network. The functions $F(X_i)$ are calculated and propagate forward into next layers. The derivative functions $F'(X_i)$ are stored.
+\item Back Propagation\\
+The constant 1 is assigned to the output unit and feed into the network in reverse. The incomming values to each node is added and multiply with value previously stored in those nodes. The result is then transfered upward to the input layer as derivative of the network function with respect to $X_i$
+\end{itemize}
+\subsection{Extreme Learning Machine}
+Extreme Learning Machine (ELM) \cite{huang_extreme_2016} is a simple yet powerful neural network algorithm. A single layer perceptron, its model can be formalize as simple matrix operations, which in turn can be massively parallelized for GPGPU operations
+\subsubsection{Mathematic Model}
+As 
+\subsection{Particle Swarm Optimization}
+\newpage
+\section{Implementation}
+\subsection{Simple dataset: Salary dataset}
+\subsubsection{Description}
+The salary dataset present a classical regression problem. Given a professor's details, including ... we should be able to predict their expected salary.
+\subsubsection{Extreme learning machine applied to regression problem}
+
+\subsubsection{Particle Swarm Optimized Extreme Learning Machine}
+Using PSO, we were able to lower the neuron count for similar accuracy by 1/10th.
+%Table needed
+\subsection{MNIST}
+\begin{itemize}
+    \item Data Description
+    \item ELM Regression
+    \item ELM Classification
+    \item PSO Optimized ELM
+\end{itemize}
+\newpage
+\section{Discussion}
+\subsection{Performance of ELM}
+\begin{itemize}
+    \item Prediction Performance: \\
+    Evidently, ELM systems are lack the prediction performance of traditional algorithm such as Backpropagation for similar number of neurons. Result from MNIST compared to state of the art networks listed on MNIST website are vastly underperformed. However there are works have been done to improve such accuracy issue. Thanks to the speed that ELM able to learn, multiple 
+\end{itemize}
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{references,refRnn}
+\end{document}

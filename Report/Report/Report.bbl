@@ -1,31 +1,86 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{lecun_theoretical_1992}
+Yann Lecun.
+\newblock A theoretical framework for back-propagation.
+\newblock In {\em Artificial neural networks}. {IEEE} Computer Society Press.
+
+\bibitem{huang_extreme_2016}
+Guang-Bin Huang, Qin-Yu Zhu, and Chee-kheong Siew.
+\newblock Extreme learning machine: Theory and applications.
+
+\bibitem{eberhart_new_1995}
+R.~Eberhart and J.~Kennedy.
+\newblock A new optimizer using particle swarm theory.
+\newblock pages 39--43. {IEEE}.
+
+\bibitem{hutchison_evolutionary_2006}
+You Xu and Yang Shu.
+\newblock Evolutionary extreme learning machine – based on particle swarm
+  optimization.
+\newblock In Jun Wang, Zhang Yi, Jacek~M. Zurada, Bao-Liang Lu, and Hujun Yin,
+  editors, {\em Advances in Neural Networks - {ISNN} 2006}, volume 3971, pages
+  644--652. Springer Berlin Heidelberg.
+\newblock {DOI}: 10.1007/11759966\_95.
 
 \bibitem{james_introduction_2013}
 Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani.
 \newblock {\em An Introduction to Statistical Learning}, volume 103 of {\em
   Springer Texts in Statistics}.
-\newblock Springer New York, 2013.
+\newblock Springer New York.
 
 \bibitem{bishop_pattern_2006}
 Christopher~M. Bishop.
 \newblock {\em Pattern recognition and machine learning}.
-\newblock Information science and statistics. Springer, 2006.
-
-\bibitem{lecun_theoretical_1992}
-Yann Lecun.
-\newblock A theoretical framework for back-propagation.
-\newblock In {\em Artificial neural networks}. {IEEE} Computer Society Press,
-  1992.
+\newblock Information science and statistics. Springer.
 
 \bibitem{rojas_neural_1996}
 Raúl Rojas.
 \newblock {\em Neural Networks}.
-\newblock Springer Berlin Heidelberg, 1996.
-\newblock {DOI}: 10.1007/978-3-642-61068-4.
+\newblock Springer Berlin Heidelberg.
 
-\bibitem{huang_extreme_2016}
-Guang-Bin Huang, Qin-Yu Zhu, and Chee-kheong Siew.
-\newblock Extreme learning machine: Theory and applications.
-\newblock 2016-05-16.
+\bibitem{li_improved_2005}
+Yong-gang Li, Wei-hua Gui, Chun-hua Yang, and Jie Li.
+\newblock Improved {PSO} algorithm and its application.
+\newblock 12(1):222--226.
+
+\bibitem{zhu_evolutionary_2005}
+Qin-Yu Zhu, A.K. Qin, P.N. Suganthan, and Guang-Bin Huang.
+\newblock Evolutionary extreme learning machine.
+\newblock 38(10):1759--1763.
+
+\bibitem{van_der_walt_numpy_2011}
+Stéfan van~der Walt, S~Chris Colbert, and Gaël Varoquaux.
+\newblock The {NumPy} array: A structure for efficient numerical computation.
+\newblock 13(2):22--30.
+
+\bibitem{lecun_gradient-based_1998}
+Y.~Lecun, L.~Bottou, Y.~Bengio, and P.~Haffner.
+\newblock Gradient-based learning applied to document recognition.
+\newblock 86(11):2278--2324.
+
+\bibitem{newell_perceptrons._1969}
+A.~Newell.
+\newblock Perceptrons. an introduction to computational geometry. marvin minsky
+  and seymour papert. m.i.t. press, cambridge, mass., 1969. vi + 258 pp.,
+  illus. cloth, \$12; paper, \$4.95.
+\newblock 165(3895):780--782.
+
+\bibitem{nan-ying_liang_fast_2006}
+{Nan-Ying Liang}, {Guang-Bin Huang}, P.~Saratchandran, and N.~Sundararajan.
+\newblock A fast and accurate online sequential learning algorithm for
+  feedforward networks.
+\newblock 17(6):1411--1423.
+
+\bibitem{cao_building_2016}
+Le-le Cao, Wen-bing Huang, and Fu-chun Sun.
+\newblock Building feature space of extreme learning machine with sparse
+  denoising stacked-autoencoder.
+\newblock 174:60--71.
+
+\bibitem{tang_extreme_2016}
+Jiexiong Tang, Chenwei Deng, and Guang-Bin Huang.
+\newblock Extreme learning machine for multilayer perceptron.
+\newblock 27(4):809--821.
 
 \end{thebibliography}

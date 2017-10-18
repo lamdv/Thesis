@@ -85,16 +85,16 @@ def find_direction(X, number_of_particle):
         if(curr_result<best_result):
             best_result = curr_result
             best_particle = i
-    D = X - np.full([number_of_particle, 6, 250], X[best_particle])
+    D = X - np.full([number_of_particle, 6, width], X[best_particle])
     # D.fill(np.asscalar(X[best_particle]))
     return [D, best_particle, best_result]
 
 def PSO(number_of_iter, number_of_particle):
     #spawn initial position and velocity
-    X = np.random.uniform(-0.5, 0.5, size = [number_of_particle, 6, 250])
-    V = np.random.uniform(-0.5, 0.5, size = [number_of_particle, 6, 250])
+    X = np.random.uniform(-1, 1, size = [number_of_particle, 6, width])
+    V = np.random.uniform(-1, 1, size = [number_of_particle, 6, width])
     #iteration:
-    Dglobal = np.empty([number_of_particle,6,250])
+    Dglobal = np.empty([number_of_particle,6, width])
     best_result = 1000000
     for iter in range(number_of_iter):
         [D, local_best_particle, local_best_result] = find_direction(X, number_of_particle)
@@ -112,17 +112,8 @@ def PSO(number_of_iter, number_of_particle):
     return X[best_particle]
 
 # X = np.random.normal(size = [10, 6, 250])
-result = np.empty([100,10])
-for i in range(1,101):
-    for j in range(1,11):
-        result[i-1,j-1] = evaluationELM(PSO(i, j))
-
-x = 100
-y = 10
-hf = plt.figure()
-ha = hf.add_subplot(111, projection='3d')
-
-X, Y = np.meshgrid(x, y)  # `plot_surface` expects `x` and `y` data to be 2D
-ha.plot_surface(X, Y, result)
-
-plt.show()
+result = np.empty(10)
+for i in range(0, 10):
+    result[i] = evaluationELM(PSO(200, 6))
+print(np.average(result))
+print(np.std(result))

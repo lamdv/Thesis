@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import re
 
 #dictionary
@@ -27,20 +26,14 @@ def inp(file):
 def feed_forward(A, syn, activ = "sigmoid"):
     if activ == "sigmoid":
         l1 = sigmoid(np.dot(A, syn))
-    elif activ == "linear":
-        l1 = np.dot(A, syn0)
     else:
-        l1 = softplus(np.dot(A, syn)) # Sigmoid activation function nodes
+        l1 = softplus(np.dot(A, syn))
     return l1
 
 
 #sigmoid function
 def sigmoid(x):
     return 1/(1+np.exp(-x))
-
-#linear function
-def linear(x):
-    return x
 
 #softplus function
 def softplus(x):
@@ -79,4 +72,3 @@ def elm(seed = None, activ = "sigmoid", width = 1000):
 # # plt.plot(result[:,0], result[:,1], "-", result[:,2], "o")
 # plt.plot(result[:,0], result[:,1], '-')
 # plt.show()
-print (elm(activ = "softplus", width = 100))

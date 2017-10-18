@@ -37,16 +37,14 @@ def elm(A, y, syn0, seed = None, activ = "sigmoid", width = 1000):
     w = np.linalg.lstsq(h, y)[0]
     return w
 
-# def test(A, y, At, yt, width):
-#     #traing using training data
-#     syn0, w = elm(A, y, width = width, activ = "sigmoid")
-#     #feed test data into network
-#     h = feed_forward(At, syn0, "sigmoid")
-#     _y = np.dot(h, w)
-#     hit = np.abs(_y - yt)
-#     #calculate hit rate
-#     hit = np.where(hit < 0.5, 1, 0)
-#     return np.average(hit)
+def test(syn0, w):
+    #feed test data into network
+    h = feed_forward(At, syn0, "sigmoid")
+    _y = np.dot(h, w_o)
+    hit = np.abs(_y - yt)
+    #calculate hit rate
+    hit = np.where(hit < 0.5, 1, 0)
+    return np.average(hit)
 
 def find_direction(X, number_of_particle):
     best_particle = 0

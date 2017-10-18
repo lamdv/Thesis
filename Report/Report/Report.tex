@@ -1,5 +1,5 @@
 
-\documentclass[11pt]{article}
+\documentclass[13pt]{article}
 
 \usepackage[utf8]{inputenc}
 %\usepackage[frenchb]{babel}
@@ -7,6 +7,9 @@
 \usepackage[babel=true,kerning=true]{microtype}
 \usepackage{multirow}
 % or whatever
+\usepackage{float}
+\restylefloat{table}
+\restylefloat{figure}
 
 \usepackage{geometry}   % Doc: geometry.pdf
 \geometry{a4paper}      % ... or letterpaper or a5paper or ... 
@@ -88,19 +91,28 @@
 \rule{\linewidth}{0.2 mm} \\[0.5 cm]
 
 \text{\large Supervisors}\\[0.25cm] % Supervisors
-\text{\large Dr.Sebastián Basterrech}\\[0.25cm] % name
+\text{\large Dr. SEBASTIÁN BASTERRECH}\\
+\text{\large Czech Technology University}\\[0.25cm] % name
 
 \text{\huge \textbf{Hanoi, July 2017}}
 \end{titlepage}
     
-
+\newpage
+\tableofcontents
 \pagenumbering{arabic}
-\begin{abstract}
-To be done later, it is a short text describing the thesis, around 500 characters (between 5 and 10 sentences).
-\end{abstract}
-%%
 \newpage
 \section*{Acknowledgement}
+I would like to express my gratitude to all who had helped me on the journey.\\
+Thank you, Dr. Sebastián Basterrech, my supervisor, who taught me everything I have conducted in this thesis. Thank you, for your patient, determinition and your knowledge. It is my privilege and honor to work under your supervision. I sincerely hope we will be able to continue this collaboration for many years to come.\\
+Thank you, Dr. Doan Nhat Quang for being my internal supervisor. Thank you for your support during this internship. Your support is most appreciated.\\
+I would like to express my appreciation to ICTLab and USTH. My 3 years endeavour at the University is unforgettable and will ever be endeared. My brief time working at ICTLab have teach me valuable lessions and give me the determination for the pursuit of an academic career.\\
+My appreciation for my friends and family, without your support I could never be able to persisted. Thank you for supporting me during difficult times, to the very end.
+\newpage
+\begin{abstract}
+    In this work we explore the simplicity of Extreme Learning Machine, its characteristic and the ability to use a swarm optimization method to archive exceptional performance.\\
+    Keywords: Extreme Learning Machine, Particle Swarm Optimization, Neural Network.
+\end{abstract}
+%%
 \newpage
 \section*{List of Abbreviations}
 \begin{itemize}
@@ -108,10 +120,36 @@ To be done later, it is a short text describing the thesis, around 500 character
     \item ELM: Extreme Learning Machine
     \item MNIST: Mixed National Institute of Standards and Technology
     \item PSO: Particle Swarm Optimization
+    \item IPSO: Improved Swarm Optimization
+    \item SLFN: Single Layer Feedforward Network
     \item USTH: University of Science and Technology of Hanoi
 \end{itemize}
 \newpage
-\section*{Mathematical notation}
+\listoffigures
+\listoftables
+% \section*{List of Tables}
+% \begin{itemize}
+%     \item 
+%     \begin{minipage}[t]{0.5\textwidth}
+%         Sample of Salary Dataset
+%     \end{minipage}
+%     \begin{minipage}[t]{0.5\textwidth}
+%         \pageref{tab:sample}
+%     \end{minipage}
+% \end{itemize}
+% \newpage
+% \section*{List of Figures}
+% \begin{itemize}
+%     \item 
+%     \begin{minipage}[t]{0.5\textwidth}
+%         Result from repeated test on ELM with Salary Dataset, group by number of neurons
+%     \end{minipage}
+%     \begin{minipage}[t]{0.5\textwidth}
+%         \pageref{fig:plot_result}
+%     \end{minipage}
+% \end{itemize}
+\newpage
+\section*{Mathematical notations}
 In order to add clarity to the paper, we decided to introduce the following formalism:
 \begin{itemize}
     \item $F(X)$ : The result of applying activation function f(x) to all element of the matrix X
@@ -128,19 +166,22 @@ In order to add clarity to the paper, we decided to introduce the following form
     \item $\eta$ : The predefined learning rate
     \item $\varepsilon$ : Random error
 \end{itemize}
-\newpage
-\tableofcontents
 %%
 \newpage
 \section{Introduction}
+In the recent years, with the recover of machine learning field from what know as an "AI Winter", neural netwrok have taken the central stage of a cutting edge field which drive many advancement in computer science. Different networks architectures, varied in width, depth and activation function powered many systems, from the massively complex Watson used to researchs and diagnoses cancer, to trival case of authenticate access to our smartphone.\\
+The awesome power of neural networks lay in its ability to adjust itself to fit the data presented. This is thank to weights - small bit of adjustable information connecting neurons in different layers in a neural networks. They reflect the relationship between the layers. Thus the main concern of the data scientist is to discover the best possile weights that fit the data presented to the system - this process is known as Machine Learning - an analogy to the similar process in human.\\
+Neural networks learning by adjust this weights based on the root mean square error (RMSE). Traditionally these adjustment was made using gradient descent method - an iterative method that go against the derivative of the activation function at the given location in the weight space. Using chain rule to send this derivation back to the previous layer, this method is called Backpropagation \cite{lecun_theoretical_1992}. This method have been proved to be a robust, reliable algorithm to find good fit model for any neural network regardless of shape or activation function - as long as the activation function is differentiable. However being an iterative method, BP have many major drawback,namely its speed and the possibility to be trapped in a local minima.\\
+Extreme Learning Machine \cite{huang_extreme_2016} is a novel method to address problem of weight adjustment. An analytical method, it overcome many problem posed by Backpropagation, especially the fact that least square method can never be trapped in a local minima. Furthermore, because all the weights are discovered at once, the speed of ELM is suggested to be hundred time faster than Backpropagation \cite{huang_extreme_2016}.\\
+Particle Swarm Optimization is a metaheuristic optimization method \cite{eberhart_new_1995}. Inspired by the behavior of a swarm of animals, PSO is one of the first and most successful swarm optimization method. In \cite{hutchison_evolutionary_2006}, Hutchison et al propose that PSO can be used to tune the input parameters of ELM. Compare to Backpropagation, PSO have several advantage. Using many instead of one particle to search in the weight space, it is both faster and present an oppotunity for parallelization of the algorithm. Also a global optimization algorithm, it is unlikely for PSO to be trapped in a local minima.
 \newpage
 \section{Background}
 \subsection{Linear Regression}
 \subsubsection{Assumption of the model}
 The Linear Model assume the linear relationship between the predictor X and respond Y:
-\begin{equation*}
+\begin{equation}
     Y=F(X)+\varepsilon=\beta_0 + \beta_1*X_1 + ... + \beta_n X_n + \varepsilon
-\end{equation*}
+\end{equation}
 where Y is the respond, X is the predictor \cite{james_introduction_2013}. The vector $[\beta_0, .. , \beta_n]$ is called a weights vector, and must be tuned in order for the model to yield accurate result.
 \subsubsection{Gradient Descent}
 The concept of Gradient Descent is to "go down" the gradient "well" at a predefined rate. After each "step" the algorithm re-evaluate for new weight vector. These steps are repeated until a pre-defined number of iterations or until the global minima have been reach. \cite{bishop_pattern_2006}\\
@@ -159,7 +200,7 @@ From $E(w)$ the derivative $\nabla E(w)$ is given by
 \end{equation}
 An important aspect of Gradient Descent is its Learning Rate $\eta$. One of the major drawback of the method is the learning rate must be carefully considered. If $\eta$ is too small, the algorithm might take very long time to finish, might not converge or will not reach the minima before the exit condition is met. Meanwhile a $\eta$ too large will risk overshooting the desired result and unable to converge.
 \subsubsection{Least Square}
-
+In contrast to the heuristic and iterative Gradient Descent method, we can calculate the coefficient directly using least square based method. The method that concerned in the context is called Moore Penrose psuedoinverse method. 
 \subsection{Backpropagation}
 Backpropagation is one of the most popular method used in Data Mining and Artificial Intelligent field for obtaining a model for Artificial Neural Network. Discovered and re-discovered many time in the $20^{th}$ century, the method is popularized and refined by multiple independent party, one of the most prominion are Werbos and Le Cun \cite{lecun_theoretical_1992}.
 \subsubsection{Algorithm}
@@ -171,35 +212,160 @@ The input $X_i$ is feed into the network. The functions $F(X_i)$ are calculated 
 The constant 1 is assigned to the output unit and feed into the network in reverse. The incomming values to each node is added and multiply with value previously stored in those nodes. The result is then transfered upward to the input layer as derivative of the network function with respect to $X_i$
 \end{itemize}
 \subsection{Extreme Learning Machine}
-Extreme Learning Machine (ELM) \cite{huang_extreme_2016} is a simple yet powerful neural network algorithm. A single layer perceptron, its model can be formalize as simple matrix operations, which in turn can be massively parallelized for GPGPU operations
-\subsubsection{Mathematic Model}
-As 
+Extreme Learning Machine (ELM) \cite{huang_extreme_2016} is a simple yet powerful learning algorithm for single layer feedforward neural network. ELM omit the need to readjust the parameters of the network after initialization - all the training example are learned at once.
+\subsubsection{Mathematical Model}
+As a SLFN, ELM model are extremely simple:
+\begin{equation}
+    \hat{Y} = w_o H=W_o F(w_i A + \beta)
+\end{equation}
+\begin{equation}
+    Y = \hat{Y} + \varepsilon
+\end{equation}
+\subsubsection{Training Model}
+In order to train the SLFN, ELM is divided into 2 stages \cite{huang_extreme_2016}:
+\begin{itemize}
+    \item Non linear weights initialization\\
+    During this stage, input weights matrix $w_i$ are initialized and assigned randomly in range of $[-1,1]$, typically follow a Gaussian distribution 
+    \item Linear weights learning\\
+    After initialization of input weights, all the training data is feeded through the network and hidden layer output are captured as $H$. Output weights matrix can then be created using analytical method as following:
+    \begin{equation}
+        w_o = Y * H^\dagger
+    \end{equation}
+    where $H^\dagger$ is the Moore - Penrose psuedoinverse product of $H$
+\end{itemize}
+
 \subsection{Particle Swarm Optimization}
+Particle Swarm Optimization is a swarm optimization technique model after the movement of a swarm of animals such as a school of fish or a flock of bird.\cite{eberhart_new_1995}. Originally designed to model social behavior, it is later realized to be a powerful tool for optimization problem.\\
+In PSO, a swarm of particle is created by spawning uniformally distributed random particle in search space. Each iteration of the algorithm, the position of each particle is recalcuated using its current position and a velocity. This velocity draw the particle to the best global and local position:
+\begin{equation}
+    V_{t+1} = V_t + c1*(global\_best - X_t) + c2*(local\_best - X_t)
+\end{equation}
+\begin{equation}
+    X_{t+1} = X_{t} + V_{t+1}
+\end{equation}
+where $X_t$ is the current position, $V_t$ is the current velocity. $c1$ and $c2$ are the weights. On some Implementation, when updating velocity, the current velocity is multiplied with a inertial factor called $w$. This algorithm is known Improved Partical Swarm Optimization (IPSO) \cite{li_improved_2005}\\
+PSO have been suggested as a good solution for weights optimization problem in neural networks\cite{hutchison_evolutionary_2006} \cite{zhu_evolutionary_2005}. Being a metaheuristic method, PSO exceptionally suitable for application where derivative of the activation is unavailable or propagation of error signal is undesirable.
 \newpage
 \section{Implementation}
-\subsection{Simple dataset: Salary dataset}
-\subsubsection{Description}
-The salary dataset present a classical regression problem. Given a professor's details, including ... we should be able to predict their expected salary.
-\subsubsection{Extreme learning machine applied to regression problem}
-
-\subsubsection{Particle Swarm Optimized Extreme Learning Machine}
-Using PSO, we were able to lower the neuron count for similar accuracy by 1/10th.
-%Table needed
-\subsection{MNIST}
-\begin{itemize}
-    \item Data Description
-    \item ELM Regression
-    \item ELM Classification
-    \item PSO Optimized ELM
-\end{itemize}
+\subsection{Dataset Description: Salary Dataset}
+The salary dataset present a classical regression problem. Given a professor's details, we should be able to predict their expected salary.\\
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{c c c c c c c }
+            Gender & Rank & YOE & Degree & YOR & Salary\\\hline
+            male & full & 25 & doctorate & 35 & 36350 \\ 
+            male & full & 13 & doctorate & 22 & 35350\\ 
+            male & full & 7 & doctorate & 13 & 27959\\ 
+            female & full & 8 & doctorate & 24 & 38045\\ 
+            female & assistant & 1 & doctorate & 1 & 16686\\ 
+            female & assistant & 1 & doctorate & 1 & 15000\\ 
+            male & full & 10 & doctorate & 23 & 28200\\ 
+            
+        \end{tabular}
+        \caption{Sample from Salary Dataset}
+        \label{tab:sample}
+    \end{center}
+\end{table}
+As standard in AI researches, the dataset is divided randomly with 70\% of the dataset is used for training and 30\% used for validation. Because ELM is not a gradient based nor having any feedback, there is no need to further divide the training dataset.
+\subsection{Extreme learning machine applied to regression problem}
+Applying ELM to single output regression problem like salary prediction is straight forward. \\
+First the text values must be translated into numerical values. In Python this was done easily using a dictionary. The converted data is organized into numpy's matrix. Training and testing data is preemptively divided into 2 different files.\\
+The experiment was designed to demonstrate ELM's bias-variance curve. Input data is dotted with randomly generated input weights before applied the activation functions. Output weights can then be learned using numpy built in least square function \cite{van_der_walt_numpy_2011}. The input-output weights pair are recorded and tested using the testing dataset.
+The network was designed with parameterization in mind. All aspect of the network can be adjusted, from its size, activation function, etc. This allow us to test the prediction performance of ELM and plot the characteristic of the network in respect to its size and repeatability. Each iteration of the test is repeated 100 times, with 100 neuron increase in size after each test. The average of the tests are show in blue. Orange line show the standard deviation. Grey horizontal line is reference result from simple linear regression using the same least square function in numpy \cite{van_der_walt_numpy_2011}.\\
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics [width=\textwidth] {result}
+    \end{center}
+    \caption{Result of ELM experiments on Salary Dataset} 
+    \label{fig:plot_result}       
+\end{figure}
+The result shown that not only lower neurons count networks yeild lower accuracy, they are also less predictable. The improvement in prediction performance stopped increasing and stable at 1000 neurons for this particular dataset. However with more neurons, the repeatability of the network increased. This imply that while on average, the average performance is stable above 1000 neurons count, at a level comparable with Linear Regression, the higher neurons count actually decrease best case performance of the network. As discussion in the next section, this derive an interesting point when designing ELM based networks for input weight optimization using PSO.
+\subsection{Particle Swarm Optimized Extreme Learning Machine}
+As suggested in \cite{hutchison_evolutionary_2006}, the prediction performance of ELM is directly linked to the quality of the input weights. While it is possible to yield result from any randomly generated input matrix, a correctly tuned input weights will result in exceptional performance. This is the drive behind classical Neural network learning algorithm such as Backpropagation. However the gradient descent nature of Backpropagation lead to complication in calculation, namely the need to tune learning rate manually, the possibility to be trapped in local minima, as well as the parameters are inconvergable. Thus it is desirable to design an scheme which combine the analytical approach of ELM with the ability to search for the most suitable input weights.\\
+In \cite{hutchison_evolutionary_2006}, the authors proved that PSO is a suitable candidate to solve the problem of search for global minima in the weights space. Our result from a repeated test on Salary dataset show that with 1/10 of the amount of the network width, the result is consistently better than only ELM. Namely, with 100 neurons wide network, the RMSE is only in range of 200 to 300, in comparation with the plot above.\\
+Furthermore, the plot in section \ref{fig:plot_result} shown that because of high derivation, lower neurons count network can outperform higher count in best case scenario. This remark is exciting because not only we are able to archive faster computation time using lower neurons count network, it is actually better for the accuracy if we use less neurons when combining ELM with PSO.
 \newpage
 \section{Discussion}
 \subsection{Performance of ELM}
-\begin{itemize}
-    \item Prediction Performance: \\
-    Evidently, ELM systems are lack the prediction performance of traditional algorithm such as Backpropagation for similar number of neurons. Result from MNIST compared to state of the art networks listed on MNIST website are vastly underperformed. However there are works have been done to improve such accuracy issue. Thanks to the speed that ELM able to learn, multiple 
-\end{itemize}
-\newpage
+Evidently, ELM systems are lack the prediction performance of traditional algorithm such as Backpropagation for similar number of neurons. Result from MNIST \cite{lecun_gradient-based_1998} compared to state of the art networks listed on MNIST website are vastly underperformed. However there are works have been done to improve such accuracy issue. Thanks to the speed that ELM able to learn, multiple algorithms have been proposed to solve the optimization of ELM input weights. As show in this work, PSO is a prominion candidate for this problem.\\
+Another problem with ELM is the base algorithm can only be applied to SLFN. While SLFN is quite helpful for certain class of problem such as shown in this work, higher reasoning, such as XOR problem often require deeply layered architecture \cite{newell_perceptrons._1969}. Several attemps was made to address this problem concerning ELM which we will elaborate in following section.\\
+Finally, ELM is inheritently a batch algorithm. The requirement for all data present at the moment of initialization, while allow the incredible speed of ELM, deman equally impressive computing power in order to compute such large and complex linear equations. In \cite{nan-ying_liang_fast_2006}, Liang et al have proposed a two steps strategy to solve this problem. Named Online Sequential ELM (OS-ELM), \cite{nan-ying_liang_fast_2006} have proved that the strategy deliver both speed of ELM and the benefit of an online sequential learning algorithm.
+\subsection{Deep ELM}
+\cite{newell_perceptrons._1969} proved there are boundary where a single layer perceptron can not effectively approximate the original functions. While ELM was proved to be an universal approximator \cite{huang_extreme_2016}, it is still desirable to produce a layered version for the algorithm.\\
+The problem arise with how to effectively train the weights connecting hidden layers. Because there are no feedback, no error signal propagated back through the network, there is no efficient method to adjust these weights which trapped between hidden layers. Thus they needed to be learn or analytically calculated individually in a layerwise fashion.\\
+In order to train each layer individually, a robust architecture was designed in \cite{cao_building_2016} based on sparse autoencoders - thus the algorithm was named AE-ELM. AE-ELM is then used to develop a feature space where another algorithm called Hierarchical ELM or H-ELM \cite{tang_extreme_2016}. By applying multiple layer of ELM based autoencoders, \cite{tang_extreme_2016} prove that H-ELM can outperform many state of the art Deep Neural Network by bypassing the training phase of the process.\\
+From the above reasoning, we project that it is possible to tune each layer of the network individually using the method covered in this thesis. Such algorithm will have the extra benefit of being able to tune just part of the network rather than the whole network, thanks to the fact that H-ELM is autoencoders stack on top of each other \cite{tang_extreme_2016}. Base on RMSE, it is arguably easy to discover which of the layers needed to be tune, and we can focus our effort to those layers only.\\
+Furthermore, since autoencoders transform the input into itself, it is reasonable to assume that each layer output is essentially similar to the original input. Thus we also propose to train each layer separately, independent from each other. The reason for this proposal is to ultilize the capabilities of high performance computing to train all the layer at once, and recombine them according to \cite{cao_building_2016}. With the layers trained and optimized in parallel, we can archive much better speed than traditional neural networks.
+\subsection{Application of ELM}
+As a relatively recent discovery, ELM shown potential for great application in many fields where a good model needed to be discover quickly without regarding future need to update \cite{huang_extreme_2016}.\\
+We believe one of such area is using neural network as a seach query. Using ELM it is now possible to produce good model for our intended outcome. Such system using Backpropagation is undesirable because of the iterative method make the time required to prepare such query higher than desirable. By fixing all the parameters of the network at the time of initialization, we now can produce one time use model that can return a match for not only extract fit, but also pattern match and close miss. This method can have great application in the field of Natural Language Processing as well as a replacement for database query and Regular Expression.\\
+The system declared above would also find application in the field of Bioinformatics. Using ELM, it is easy to produce pattern finding network used to identify genomes in a sequence, and matching different combination of traits, gene and proteins together. Currently it is harder to use a Neural Network system on said application due to lead time required to train a good model. ELM can potentially eliminate this lead time and open the gate for new exciting applications of Neural Network. 
 \bibliographystyle{unsrt}
 \bibliography{references,refRnn}
+\newpage
+\appendix 
+\section{Python Implementation: Extreme Learning Machine}
+\begin{verbatim}
+import numpy as np
+import re
+
+#dictionary
+genders = {'male':1, 'female':-1}
+ranks = {"full":1, "associate":0, "assistant":-1}
+degrees = {"masters":1, "doctorate":-1}
+
+#data input from ../salary.dat
+#convert text input to numeric according to dictionary above
+def inp(file):
+    with  open(file, 'r') as input:
+        length = 0
+        A = np.array([[0, 0, 0, 0, 0, 0]]) #input layer size of 6
+        y = np.array([0])
+        for line in input.readlines():
+            wordList = re.sub("[^\w]", " ", line).split()
+            vect = np.array([0, float(genders[wordList[0]]), ranks[wordList[1]], float(wordList[2]), degrees[wordList[3]], float(wordList[4])]) #gender, rank, yr, degree received, yd
+            A = np.append(A, [vect], axis=0)
+            y = np.append(y, [float(wordList[5])], axis=0)
+            length += 1
+    return np.delete(A, 0, axis = 0), np.delete(y, 0), length
+
+#feed forward into the network
+#sigmoid activation network
+def feed_forward(A, syn, activ = "sigmoid"):
+    if activ == "sigmoid":
+        l1 = sigmoid(np.dot(A, syn))
+    else:
+        l1 = softplus(np.dot(A, syn))
+    return l1
+
+
+#sigmoid function
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+
+#softplus function
+def softplus(x):
+    return np.log(1+np.exp(x))
+
+def elm(seed = None, activ = "sigmoid", width = 1000):
+    np.random.seed(seed)
+    #func = np.random.rand(width, 1) #randomly assign activation function to the nodes of the network
+
+    #read the training dataset
+    [A, y, length] = inp('salary.dat')
+    #randomized input weights
+    syn0 = np.random.normal(size = (6, width))
+    h = feed_forward(A, syn0, activ)
+    w = np.linalg.lstsq(h, y)[0] #least square learning on the output weight of random layer
+
+    #read the test dataset
+    [A, y, length] = inp("salary_test.dat")
+    #feed test data into network
+    h = feed_forward(A, syn0, activ)
+
+    #calculate error
+    err = np.abs(np.average(np.dot(h, w) - y))
+    #print('',err)
+    return err
+\end{verbatim}
 \end{document}

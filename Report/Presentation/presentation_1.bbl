@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{huang_extreme_2016}
+Guang-Bin Huang, Qin-Yu Zhu, and Chee-kheong Siew.
+\newblock Extreme learning machine: Theory and applications.
+
+\bibitem{eberhart_new_1995}
+R.~Eberhart and J.~Kennedy.
+\newblock A new optimizer using particle swarm theory.
+\newblock pages 39--43. {IEEE}.
+
+\bibitem{cao_building_2016}
+Le-le Cao, Wen-bing Huang, and Fu-chun Sun.
+\newblock Building feature space of extreme learning machine with sparse
+  denoising stacked-autoencoder.
+\newblock 174:60--71.
+
+\bibitem{tang_extreme_2016}
+Jiexiong Tang, Chenwei Deng, and Guang-Bin Huang.
+\newblock Extreme learning machine for multilayer perceptron.
+\newblock 27(4):809--821.
+
+\end{thebibliography}

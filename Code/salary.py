@@ -37,8 +37,7 @@ print(w)
 
 A = sigmoid(A)
 
-print "result: "
-print np.dot(A,w)
+print ("result: ",np.dot(A,w))
 err = np.average(np.dot(A, w) - y)
 
 print("Error: ", err)
